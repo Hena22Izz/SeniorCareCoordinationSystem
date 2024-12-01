@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Information Management</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .sidebar {
+            background-color: #34495e;
+            color: white;
+            height: 100vh;
+            padding: 20px;
+            position: fixed;
+            width: 250px;
+            left: -250px;
+            transition: all 0.3s ease-in-out;
+        }
+        .sidebar.active {
+            left: 0;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 15px;
+            padding: 10px;
+        }
+        .sidebar a:hover {
+            background-color: #2c3e50;
+        }
+        .sidebar .dashboard {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .toggle-sidebar-btn {
+            cursor: pointer;
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: #2c3e50;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .logout-btn {
+            margin-top: 20px;
+            display: block;
+            background-color: #67ace4;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            text-align: center;
+        }
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+        #main-content {
+            margin-left: 210;
+            transition: margin-left 0.3s ease-in-out;
+        }
+        .sidebar.active ~ #main-content {
+            margin-left: 250px;
+        }
+        header a {
+            text-decoration: none;
+            background-color: #51a2d9; 
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        header a:hover {
+            background-color: #2980b9;
+        }
+        .analytics-section {
+            margin-top: 30px;
+        }
+        .analytics-table th, .analytics-table td {
+            text-align: center;
+        }
+        .analytics-summary {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .summary-box {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        /* Add spacing between sections */
+        .search-bar {
+            margin-bottom: 20px;
+        }
+        .analytics-section h3 {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="d-flex justify-content-between align-items-center bg-dark text-white p-3">
+        <button class="toggle-sidebar-btn" onclick="toggleSidebar()" style="color: white;">&#9776;</button>
+        <h1 class="m-0">Reports</h1>
+        <a href="profile.html">User Profile</a>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <a href="dashboard.html" class="dashboard">Dashboard</a>
+        <a href="info_management.html">Information Management</a>
+        <a href="manage_patient.html">Patient Management</a>
+        <a href="manage_staff.html">Staff Management</a>
+        <a href="manage_appointments.html">Appointments</a>
+        <a href="reports.html">Reports</a>
+        <button class="logout-btn">Logout</button>
+    </div>
+ <!-- Main Content -->
+ <main class="container mt-5" id="main-content">
+    <h2 class="text-center mb-4">Analytics Overview</h2>
+
+    <!-- Patient List -->
+    <div class="analytics-section">
+        <h3>Patient List</h3>
+        <input type="text" id="patientSearch" class="form-control mb-3" placeholder="Search Patients..." onkeyup="searchTable('patient')">
+        <table class="table table-bordered analytics-table" id="patientTable">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Contact</th>
+                    <th>Medical Condition</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Ismail Baharom</td>
+                    <td>45</td>
+                    <td>012-3456789</td>
+                    <td>Hypertension</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Salmah Yahya</td>
+                    <td>30</td>
+                    <td>011-9876543</td>
+                    <td>Diabetes</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Staff Details -->
+    <div class="analytics-section">
+        <h3>Staff Details</h3>
+        <input type="text" id="staffSearch" class="form-control mb-3" placeholder="Search Staff..." onkeyup="searchTable('staff')">
+        <table class="table table-bordered analytics-table" id="staffTable">
+            <thead class="table-dark">
+                <tr>
+                    <th>Staff ID</th>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Contact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>101</td>
+                    <td>John Doe</td>
+                    <td>Doctor</td>
+                    <td>013-4567890</td>
+                </tr>
+                <tr>
+                    <td>102</td>
+                    <td>Amy Tan</td>
+                    <td>Nurse</td>
+                    <td>014-6789012</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Caregiver Details -->
+    <div class="analytics-section">
+        <h3>Caregiver Details</h3>
+        <input type="text" id="caregiverSearch" class="form-control mb-3" placeholder="Search Caregivers..." onkeyup="searchTable('caregiver')">
+        <table class="table table-bordered analytics-table" id="caregiverTable">
+            <thead class="table-dark">
+                <tr>
+                    <th>Caregiver ID</th>
+                    <th>Name</th>
+                    <th>Assigned Patient</th>
+                    <th>Contact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>201</td>
+                    <td>Aisyah Zainal</td>
+                    <td>Ismail Baharom</td>
+                    <td>012-3456789</td>
+                </tr>
+                <tr>
+                    <td>202</td>
+                    <td>Mohammad Ali</td>
+                    <td>Salmah Yahya</td>
+                    <td>011-9876543</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Summary Analytics -->
+    <div class="analytics-summary">
+        <h3>Summary Analytics</h3>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="summary-box">
+                    <p><strong>Total Patients:</strong> 2</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="summary-box">
+                    <p><strong>Total Staff:</strong> 2</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="summary-box">
+                    <p><strong>Total Caregivers:</strong> 2</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center p-3 mt-auto">
+        &copy; 2024 Senior Care Coordination System
+    </footer>
+
+      <!-- Bootstrap JS -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+      <script>
+          function toggleSidebar() {
+              const sidebar = document.getElementById('sidebar');
+              sidebar.classList.toggle('active');
+          }
+  
+          function searchTable(tableType) {
+              let searchInput, filter, table, tr, td, i, txtValue;
+              if (tableType === 'patient') {
+                  searchInput = document.getElementById('patientSearch');
+                  table = document.getElementById('patientTable');
+              } else if (tableType === 'staff') {
+                  searchInput = document.getElementById('staffSearch');
+                  table = document.getElementById('staffTable');
+              } else if (tableType === 'caregiver') {
+                  searchInput = document.getElementById('caregiverSearch');
+                  table = document.getElementById('caregiverTable');
+              }
+  
+              filter = searchInput.value.toUpperCase();
+              tr = table.getElementsByTagName('tr');
+  
+              for (i = 0; i < tr.length; i++) {
+                  td = tr[i].getElementsByTagName('td');
+                  if (td) {
+                      let match = false;
+                      for (let j = 0; j < td.length; j++) {
+                          if (td[j].textContent.toUpperCase().indexOf(filter) > -1) {
+                              match = true;
+                              break;
+                          }
+                      }
+                      if (match) {
+                          tr[i].style.display = '';
+                      } else {
+                          tr[i].style.display = 'none';
+                      }
+                  }
+              }
+          }
+      </script>
+</body>
+</html>
