@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Activity</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2ebe3;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input, select, button {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color:  #d2a679;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #b58863;
+        }
+        .note {
+            font-size: 0.9em;
+            color: #777;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Schedule an Activity</h2>
+        <form action="/schedule" method="POST">
+            <label for="activity">Activity:</label>
+            <select id="activity" name="activity_id">
+                <option value="1">Activity 1</option>
+                <option value="2">Activity 2</option>
+            </select><br><br>
+
+            <label for="senior">Senior:</label>
+            <select id="senior" name="senior_id">
+                <option value="1">Senior 1</option>
+                <option value="2">Senior 2</option>
+            </select><br><br>
+
+            <label for="caregiver">Caregiver:</label>
+            <select id="caregiver" name="caregiver_id">
+                <option value="1">Caregiver 1</option>
+                <option value="2">Caregiver 2</option>
+            </select><br><br>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date"><br><br>
+
+            <input type="submit" value="Schedule Activity">
+        </form>
+    </div>
+</body>
+</html>
